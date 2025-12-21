@@ -1,0 +1,224 @@
+:root{
+	/* Soft backgrounds (sage green instead of pink) */
+	--soft-pink: #c8dfb8;     /* light sage background */
+
+	/* Primary CTA (keep pink for conversions) */
+	--igp-pink:  rgb(95, 111, 82);     /* CTA buttons */
+
+	/* Accent */
+	
+	--gold-accent: #E0B84F ;  /* soft luxury gold */
+
+	/* Text */
+	--text-dark: #2B2B2B;
+	--text-light: #6F6F6F;
+
+	/* Borders */
+	--border: #E3E6E2;
+
+	/* Page theme */
+	--page-bg: #a8c1a1; /* global page background */
+	--card-bg: #FBFBF9; /* off-white card surfaces */
+} 
+
+body{
+	font-family: Inter, ui-sans-serif, system-ui;
+	color: var(--text-dark);
+	background-color: #F3F6F2;
+}
+
+/* Global card/panel style used across pages */
+.card{
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.card:hover{ box-shadow: 0 14px 40px rgba(0,0,0,0.10); transform: translateY(-2px); }
+
+/* Pink variant of card used for product cards and orders */
+.card-pink{
+  background: var(--soft-pink);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.03);
+  color: var(--text-dark);
+}
+.card-pink:hover{ box-shadow: 0 14px 40px rgba(0,0,0,0.09); transform: translateY(-2px); }
+
+/* small utility to apply only background color (no padding/shadow) */
+.bg-card{ background: var(--card-bg); border-radius: 6px; border: 1px solid rgba(0,0,0,0.04); }
+
+/* Header aligned to theme */
+.site-header{ background: var(--soft-pink); border-bottom: 1px solid rgba(0,0,0,0.04); color: var(--text-dark); }
+.site-header a, .site-header .text-gray-600{ color: var(--text-dark) !important; }
+.site-header .search-input{ background: rgba(255,255,255,0.9); }
+
+
+/* Theme helpers */
+.btn-igp{
+	background: var(--igp-pink);
+	color: white;
+}
+.btn-igp:hover{ filter: brightness(.95); }
+
+.btn-gold{
+	background: var(--gold-accent);
+	color: #111;
+}
+.btn-gold:hover{ filter: brightness(.97); }
+
+.soft-bg{
+	background: var(--soft-pink);
+}
+
+.icon-soft{
+	color: var(--text-light);
+}
+
+.border-soft{
+	border-color: var(--border);
+}
+
+/* Search input style used in header */
+.search-input{
+	background: #FFFFFF;
+	border: 1px solid var(--border);
+	padding: 0.55rem 0.9rem;
+	border-radius: 9999px;
+	outline: none;
+	color: var(--text-dark);
+	min-width: 220px;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+.search-input::placeholder{
+	color: var(--text-light);
+}.hero-images{
+  position: relative;
+  width: 420px;
+  height: 360px;
+  display: block;
+}
+
+/* ============================= */
+/* Background decorative cards */
+/* ============================= */
+
+.rect{
+  position: absolute;
+  background: rgba(242, 239, 232, 1);
+  border-radius: 8px;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+  z-index: 0;
+}
+
+.rect-large{
+  top: -10%;
+  right: -10%;
+  width: 320px;
+  height: 360px;
+}
+
+.rect-small{
+  bottom: -12%;
+  left: -10%;
+  width: 220px;
+  height: 200px;
+}
+
+/* ============================= */
+/* Hero photos */
+/* ============================= */
+
+.photo{
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  border: 8px solid #ffffff;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+  z-index: 2;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* main photo */
+.photo-main{
+  width: 240px;
+  height: 320px;
+  top: -6%;
+  right: -4%;
+  z-index: 3;
+}
+
+/* secondary photo */
+.photo-small{
+  width: 180px;
+  height: 220px;
+  top: 36%;
+  left: -6%;
+  z-index: 2;
+}
+
+/* ============================= */
+/* Hover animation */
+/* ============================= */
+
+.hero-images:hover .photo-main{
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 28px 60px rgba(0,0,0,0.18);
+}
+
+.hero-images:hover .photo-small{
+  transform: translateY(3px) scale(1.02);
+}
+
+/* ============================= */
+/* Responsive */
+/* ============================= */
+
+@media (max-width: 1024px){
+  .hero-images{
+    width: 320px;
+    height: 320px;
+  }
+
+  .photo-main{
+    width: 200px;
+    height: 260px;
+  }
+
+  .photo-small{
+    width: 160px;
+    height: 190px;
+  }
+
+  .rect-large{
+    width: 260px;
+    height: 300px;
+  }
+
+  .rect-small{
+    width: 180px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 768px){
+  .hero-images{
+    width: 260px;
+    height: 300px;
+  }
+
+  .photo-main{
+    width: 180px;
+    height: 240px;
+  }
+
+  .photo-small{
+    width: 140px;
+    height: 180px;
+  }
+}

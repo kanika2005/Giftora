@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand: PartyVerse */
+  /* Primary: Deep Purple representing celebration/night */
+  --primary: #6366f1; 
+  --primary-foreground: #ffffff;
+  
+  /* Secondary: Soft Pink for emotion/gifting */
+  --secondary: #fce7f3;
+  --secondary-foreground: #db2777;
+
+  /* Accent: Gold for "Premium" feel */
+  --accent: #f59e0b;
+  --accent-foreground: #ffffff;
+
+  /* Neutrals */
+  --background: #ffffff;
+  --foreground: #1f2937;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.025em;
+}

@@ -26,4 +26,4 @@ npm start
 MongoDB connection (for MongoDB Compass):
 mongodb://localhost:27017/the_party_shop
 Admin account: admin@thepartyshop.com / admin123
-Test user: user@thepartyshop.com / user123
+Test user: user@thepartyshop.com / user123# Giftora-

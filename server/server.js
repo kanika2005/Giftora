@@ -24,8 +24,8 @@ const authLimiter = rateLimit({
 });
 
 // Fail fast when critical environment variables are missing in production
-if(!process.env.JWT_SECRET){
-  if(process.env.NODE_ENV === 'production'){
+if (!process.env.JWT_SECRET) {
+  if (process.env.NODE_ENV === 'production') {
     console.error('FATAL: JWT_SECRET must be set in environment');
     process.exit(1);
   } else {
@@ -38,8 +38,8 @@ app.use(express.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/the_party_shop';
-if(process.env.NODE_ENV !== 'test'){
-  mongoose.connect(MONGODB_URI).then(()=>console.log('MongoDB connected')).catch(e=>console.error(e));
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.connect(MONGODB_URI).then(() => console.log('MongoDB connected')).catch(e => console.error(e));
 }
 
 // Apply auth rate limiter to auth routes
@@ -54,8 +54,9 @@ app.use('/api/admin/orders', require('./routes/adminOrders'));
 app.get('/health', (req, res) => res.json({ status: 'ok', uptime: process.uptime() }));
 
 const PORT = process.env.PORT || 5000;
-if(process.env.NODE_ENV !== 'test'){
-  app.listen(PORT, ()=>console.log('Server running on port', PORT));
+// Only listen if the file is executed directly (not when imported by Vercel)
+if (require.main === module && process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => console.log('Server running on port', PORT));
 }
 
 module.exports = app;

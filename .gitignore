@@ -14,4 +14,7 @@ build
 
 # misc
 .DS_Store
+.vscode/
+*.ipynb
+client-v2/
 

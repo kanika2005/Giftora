@@ -5,6 +5,9 @@ import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Orders from './pages/Orders';
+import Wishlist from './pages/Wishlist';
+import GiftRegistry from './pages/GiftRegistry';
+import GiftRegistryDetails from './pages/GiftRegistryDetails';
 import Admin from './pages/Admin';
 import AdminOrders from './pages/AdminOrders';
 import Login from './pages/Login';
@@ -17,13 +20,19 @@ function Navbar({cartCount}){
 
   return (
     <header className="bg-white border-b border-soft">
-      <div className="max-w-6xl mx-auto flex items-center gap-4 p-4">
-        <div className="flex items-center gap-4 flex-1">
-          <Link to="/" className="text-2xl font-bold text-gray-800">Giftora🎁</Link>
+      <div className="max-w-6xl mx-auto w-full flex flex-wrap items-center gap-3 p-4">
+        <div className="flex items-center gap-3 flex-1 min-w-[160px]">
+          <Link to="/" className="text-2xl font-bold text-gray-800 flex gap-x-2">Giftora<img
+    src="/images/tora.png"
+    alt="Giftora"
+    className="w-7 h-7 object-contain"
+  /></Link>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="nav-links flex flex-wrap items-center gap-3 ml-auto text-sm sm:text-base">
           <Link to="/" className="text-gray-600 hover:underline">Home</Link>
           {!isAdmin && <Link to="/cart" className="text-gray-600 hover:underline">Cart{cartCount>0 && <span className="ml-1 px-2 rounded" style={{background:'var(--soft-pink)',color:'var(--igp-pink)'}}>{cartCount}</span>}</Link>}
+          {user && !isAdmin && <Link to="/wishlist" className="text-gray-600 hover:underline">Wishlist</Link>}
+          {user && !isAdmin && <Link to="/gift-registry" className="text-gray-600 hover:underline">Registries</Link>}
           {user && !isAdmin && <Link to="/orders" className="text-gray-600 hover:underline">My Orders</Link>}
           {user && isAdmin && <Link to="/admin" className="text-gray-600 px-3 py-1 rounded">Admin Panel</Link>}
           {user && isAdmin && <Link to="/admin-orders" className="text-gray-600 px-3 py-1 rounded">Orders</Link>}
@@ -64,13 +73,16 @@ function AppContent(){
   }, [user]);
 
   return (
-    <div>
+    <div className="app-shell">
       <Navbar cartCount={cartCount} />
-      <main className="max-w-6xl mx-auto p-6 bg-[#ffffff]">
+      <main className="app-main max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 bg-white">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/gift-registry" element={<GiftRegistry />} />
+          <Route path="/gift-registry/:id" element={<GiftRegistryDetails />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/admin" element={<Admin />} />
@@ -79,7 +91,7 @@ function AppContent(){
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </main>
-      <footer className="text-center py-6 text-gray-600">© {new Date().getFullYear()} Giftora</footer>
+      <footer className="text-center py-6 px-4 text-gray-600">© {new Date().getFullYear()} Giftora</footer>
     </div>
   );
 }

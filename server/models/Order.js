@@ -1,7 +1,21 @@
 const mongoose = require('mongoose');
 const OrderSchema = new mongoose.Schema({
   user:{type:mongoose.Schema.Types.ObjectId, ref:'User'},
-  items:[{ product:{type:mongoose.Schema.Types.ObjectId, ref:'Product'}, name:String, price:Number, qty:Number }],
+  items:[{ 
+    product:{type:mongoose.Schema.Types.ObjectId, ref:'Product'}, 
+    name:String, 
+    price:Number, 
+    qty:Number,
+    // Gift options for this order item
+    giftWrapping: { type: Boolean, default: false },
+    giftWrappingPrice: { type: Number, default: 0 },
+    personalization: {
+      enabled: { type: Boolean, default: false },
+      type: { type: String, enum: ['message', 'engraving', 'custom-text'] },
+      text: { type: String, maxlength: 200 },
+      price: { type: Number, default: 0 }
+    }
+  }],
   totalAmount:Number,
   shipping:{ name:String, address:String, city:String, postalCode:String, phone:String },
   paymentMethod:{type:String, default:'COD'},

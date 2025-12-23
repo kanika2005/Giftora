@@ -62,7 +62,7 @@ export default function Orders(){
                     <div>
                       <div>{it.name} x {it.qty}</div>
                     </div>
-                    <span>₹{it.price.toFixed(0)}</span>
+                    <span>₹{(it.price || 0).toFixed(0)}</span>
                   </li>
                 ))} 
               </ul>

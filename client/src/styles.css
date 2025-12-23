@@ -27,6 +27,24 @@ body{
 	background-color: #F3F6F2;
 }
 
+/* Layout shell keeps footer at bottom on short pages */
+.app-shell{ min-height: 100vh; display: flex; flex-direction: column; background: var(--page-bg); }
+.app-main{ flex: 1; width: 100%; }
+
+/* Simple responsive defaults */
+img{ max-width: 100%; height: auto; }
+
+.nav-links{ flex-wrap: wrap; justify-content: flex-end; }
+.nav-links a{ white-space: nowrap; }
+
+@media (max-width: 768px){
+  .nav-links{ width: 100%; justify-content: flex-start; }
+}
+
+@media (max-width: 640px){
+  .nav-links{ gap: 10px; }
+}
+
 /* Global card/panel style used across pages */
 .card{
   background: var(--card-bg);
@@ -94,11 +112,26 @@ body{
 
 .search-input::placeholder{
 	color: var(--text-light);
-}.hero-images{
+}
+.hero-images{
   position: relative;
   width: 420px;
   height: 360px;
-  display: block;
+}
+
+
+/* Hero banner text sizing on small screens */
+.hero-banner{ padding: 24px 16px; }
+.hero-title{ line-height: 1.1; }
+.hero-sub{ max-width: 520px; }
+
+@media (min-width: 768px){
+  .hero-banner{ padding: 48px 24px; }
+}
+
+@media (max-width: 640px){
+  .hero-title{ font-size: 2rem; }
+  .hero-sub{ font-size: 1rem; }
 }
 
 /* ============================= */
@@ -107,118 +140,132 @@ body{
 
 .rect{
   position: absolute;
-  background: rgba(242, 239, 232, 1);
-  border-radius: 8px;
-  box-shadow: 0 14px 30px rgba(0,0,0,0.06);
+  background: rgba(242, 239, 232, 0.95);
+  border-radius: 14px;
+  box-shadow: 0 18px 36px rgba(0,0,0,0.06);
   border: 1px solid rgba(0,0,0,0.04);
   z-index: 0;
 }
 
+/* background for main photo */
 .rect-large{
-  top: -10%;
-  right: -10%;
-  width: 320px;
+  top: -4%;
+  right: -6%;
+  width: 300px;
   height: 360px;
 }
 
+/* background for small photo */
 .rect-small{
-  bottom: -12%;
-  left: -10%;
-  width: 220px;
-  height: 200px;
+  bottom: -4%;
+  left: -6%;
+  width: 210px;
+  height: 230px;
 }
+
 
 /* ============================= */
 /* Hero photos */
 /* ============================= */
-
 .photo{
   position: absolute;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 4px;
-  border: 8px solid #ffffff;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
-  z-index: 2;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  border-radius: 6px;
+  border: 10px solid #ffffff;
+
+  box-shadow: 0 18px 45px rgba(0,0,0,0.14);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
+
 
 /* main photo */
 .photo-main{
-  width: 240px;
-  height: 320px;
-  top: -6%;
-  right: -4%;
+  width: 250px;
+  height: 330px;
+
+  top: -1%;
+  right: 0%;
+
   z-index: 3;
+  transform: rotate(1deg);
 }
+
 
 /* secondary photo */
 .photo-small{
   width: 180px;
-  height: 220px;
-  top: 36%;
-  left: -6%;
+  height: 230px;
+
+  bottom: 4%;
+  left: 0%;
+
   z-index: 2;
+  transform: rotate(-2deg);
 }
+
 
 /* ============================= */
 /* Hover animation */
 /* ============================= */
 
 .hero-images:hover .photo-main{
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 28px 60px rgba(0,0,0,0.18);
+  transform: translateY(-6px) rotate(1deg) scale(1.04);
+  box-shadow: 0 32px 70px rgba(0,0,0,0.18);
 }
 
 .hero-images:hover .photo-small{
-  transform: translateY(3px) scale(1.02);
+  transform: translateY(4px) rotate(-2deg) scale(1.03);
 }
+
 
 /* ============================= */
 /* Responsive */
 /* ============================= */
 
 @media (max-width: 1024px){
-  .hero-images{
-    width: 320px;
-    height: 320px;
-  }
+ 
+  .hero-images{ width: 320px; height: 320px; }
 
-  .photo-main{
-    width: 200px;
-    height: 260px;
-  }
+  .photo-main{ width: 210px; height: 280px; }
+  .photo-small{ width: 150px; height: 190px; }
 
-  .photo-small{
-    width: 160px;
-    height: 190px;
-  }
-
-  .rect-large{
-    width: 260px;
-    height: 300px;
-  }
-
-  .rect-small{
-    width: 180px;
-    height: 150px;
-  }
+  .rect-large{ width: 260px; height: 300px; }
+  .rect-small{ width: 180px; height: 200px; }
 }
 
 @media (max-width: 768px){
-  .hero-images{
-    width: 260px;
-    height: 300px;
-  }
+ .hero-images{ width: 260px; height: 300px; }
 
-  .photo-main{
-    width: 180px;
-    height: 240px;
-  }
-
-  .photo-small{
-    width: 140px;
-    height: 180px;
-  }
+  .photo-main{ width: 190px; height: 250px; }
+  .photo-small{ width: 140px; height: 180px; }
 }
+.checkout-page {
+  background: linear-gradient(135deg, #f2f6ea, #fff5f0);
+  padding: 60px 16px;
+  min-height: 80vh;
+}
+
+.checkout-card {
+  background: #fff;
+  max-width: 900px;
+  margin: auto;
+  padding: 32px;
+  border-radius: 22px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.btn-gold {
+  background: #e6b84c;
+  color: #1f2937;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.btn-gold:hover {
+  background: #d9a93a;
+  transform: translateY(-1px);
+}
+

@@ -46,6 +46,8 @@ if (process.env.NODE_ENV !== 'test') {
 app.use('/api/auth', authLimiter, require('./routes/auth'));
 app.use('/api/products', require('./routes/products'));
 app.use('/api/cart', require('./routes/cart'));
+app.use('/api/wishlist', require('./routes/wishlist'));
+app.use('/api/gift-registry', require('./routes/giftRegistry'));
 app.use('/api/admin/products', require('./routes/adminProducts'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/admin/orders', require('./routes/adminOrders'));

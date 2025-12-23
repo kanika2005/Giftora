@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { useToast } from '../components/ToastProvider';
 import { useUser } from '../context/UserContext';
+import GiftOptions from '../components/GiftOptions';
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -12,7 +13,11 @@ export default function ProductDetails() {
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
   const [submitting, setSubmitting] = useState(false);
-
+  const [giftOptions, setGiftOptions] = useState({
+    giftWrapping: false,
+    personalization: { enabled: false, type: 'message', text: '' }
+  });
+  const [inWishlist, setInWishlist] = useState(false);
 
   const navigate = useNavigate();
   const { show } = useToast();
@@ -21,7 +26,23 @@ export default function ProductDetails() {
   useEffect(() => {
     API.get('/products/' + id).then(r => setProduct(r.data)).catch(e => console.error(e));
     fetchReviews();
+    checkWishlist();
   }, [id]);
+
+  const checkWishlist = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const res = await API.get('/wishlist', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const isInWishlist = res.data.items.some(item => item.product._id === id);
+      setInWishlist(isInWishlist);
+    } catch (error) {
+      console.error('Error checking wishlist:', error);
+    }
+  };
 
   const fetchReviews = () => {
     API.get(`/products/${id}/reviews`).then(r => setReviews(r.data)).catch(e => console.error(e));
@@ -36,14 +57,40 @@ export default function ProductDetails() {
     const token = localStorage.getItem('token');
     if (!token) { return navigate('/login'); }
 
-
-
     try {
-      await API.post('/cart/add', { productId: id, qty: 1 }, { headers: { Authorization: 'Bearer ' + token } });
+      await API.post('/cart/add', { 
+        productId: id, 
+        qty: 1,
+        giftWrapping: giftOptions.giftWrapping,
+        personalization: giftOptions.personalization
+      }, { headers: { Authorization: 'Bearer ' + token } });
       show('Added to cart', { type: 'success' });
       navigate('/cart');
     } catch (e) {
       show(e.response?.data?.message || 'Error adding to cart', { type: 'error' });
+    }
+  };
+
+  const toggleWishlist = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return navigate('/login');
+
+    try {
+      if (inWishlist) {
+        await API.delete(`/wishlist/remove/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setInWishlist(false);
+        show('Removed from wishlist', { type: 'success' });
+      } else {
+        await API.post('/wishlist/add', { productId: id }, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setInWishlist(true);
+        show('Added to wishlist', { type: 'success' });
+      }
+    } catch (error) {
+      show(error.response?.data?.message || 'Error updating wishlist', { type: 'error' });
     }
   }; 
 
@@ -85,10 +132,29 @@ export default function ProductDetails() {
             <span className="text-gray-500 text-sm">({reviews.length} reviews)</span>
           </div>
           <p className="text-gray-600 mb-4">{product.description}</p>
-          <div className="text-2xl font-semibold mb-4">₹{product.price.toFixed(0)}</div>
+          <div className="text-2xl font-semibold mb-4">₹{(product.price || 0).toFixed(0)}</div>
+
+          {/* Gift Options */}
+          {!isAdmin && (
+            <GiftOptions product={product} onOptionsChange={setGiftOptions} />
+          )}
 
           {!isAdmin ? (
-            <button onClick={addToCart} className="px-4 py-2 rounded btn-igp">Add to cart</button>
+            <div className="flex gap-3">
+              <button onClick={addToCart} className="px-6 py-2 rounded btn-igp">
+                Add to cart
+              </button>
+              <button 
+                onClick={toggleWishlist} 
+                className={`px-4 py-2 rounded border ${
+                  inWishlist 
+                    ? 'border-pink-500 text-pink-500 bg-pink-50' 
+                    : 'border-gray-300 hover:border-pink-500 hover:text-pink-500'
+                }`}
+              >
+                {inWishlist ? '❤️ In Wishlist' : '🤍 Add to Wishlist'}
+              </button>
+            </div>
           ) : (
             <div className="text-sm text-gray-500">Admin accounts cannot add items to cart</div>
           )}

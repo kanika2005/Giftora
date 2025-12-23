@@ -58,11 +58,11 @@ export default function Home(){
   return (
     <div className="w-full">
       {/* Hero Banner */}
-      <section className="relative bg-soft-pink overflow-hidden mb-8 rounded-lg" style={{backgroundImage:'linear-gradient(135deg, var(--soft-pink) 0%, rgba(230,0,92,0.1) 100%)'}}>
+      <section className="hero-banner relative bg-soft-pink overflow-hidden mb-8 rounded-lg" style={{backgroundImage:'linear-gradient(135deg, var(--soft-pink) 0%, rgba(230,0,92,0.1) 100%)'}}>
         <div className="max-w-6xl mx-auto flex items-center gap-8 py-16 px-6">
           <div className="flex-1">
-            <h1 className="text-5xl font-bold mb-2" style={{color:'var(--text-dark)'}}>Make Every Moment Unforgettable 💝</h1>
-            <p className="text-lg mb-6" style={{color:'var(--text-light)'}}>Cakes, bouquets, surprises, and party essentials — everything you need to make someone smile.</p>
+            <h1 className="hero-title text-5xl font-bold mb-2" style={{color:'var(--text-dark)'}}>Make Every Moment Unforgettable 💝</h1>
+            <p className="hero-sub text-lg mb-6" style={{color:'var(--text-light)'}}>Cakes, bouquets, surprises, and party essentials — everything you need to make someone smile.</p>
             <button onClick={scrollToProducts} className="px-6 py-3 rounded-full font-semibold" style={{background:'#5F6F52', color:'white'}}>Shop Now</button>
           </div>
           {/* Hero image collage */}
@@ -140,7 +140,7 @@ export default function Home(){
                   <h3 className="font-semibold text-sm truncate" style={{color:'var(--text-dark)'}}>{p.title}</h3>
                   <p className="text-xs mb-3" style={{color:'var(--text-light)'}}>{p.category||'Other'}</p>
                   <div className="flex justify-between items-center">
-                    <div className="text-lg font-bold" style={{color:'var(--igp-pink)'}}>₹{p.price.toFixed(0)}</div>
+                    <div className="text-lg font-bold" style={{color:'var(--igp-pink)'}}>₹{(p.price || 0).toFixed(0)}</div>
                   </div>
                 </div>
               </div>

@@ -12,8 +12,24 @@ const app = express();
 app.use(helmet());
 
 // Restrict CORS to the client origin in production
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
-app.use(cors({ origin: CLIENT_ORIGIN }));
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || "http://localhost:3000";
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests without Origin (Postman, server-to-server)
+    if (!origin) return callback(null, true);
+
+    const allowedOrigins = CLIENT_ORIGIN.split(",");
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true
+}));
+
 
 // Rate limiter for authentication endpoints to mitigate brute force
 const authLimiter = rateLimit({

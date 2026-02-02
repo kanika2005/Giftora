@@ -54,6 +54,8 @@ function Navbar({cartCount}){
 }
 
 function AppContent(){
+  console.log("API URL being used:", process.env.REACT_APP_API_URL);
+
   const { user } = useUser();
   const [cartCount, setCartCount] = useState(0);
 

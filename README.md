@@ -1,42 +1,47 @@
-The Party Shop - MERN (v1)
---------------------------
+# Giftora
 
-A full-stack MERN e-commerce app (The Party Shop) with:
-- User auth (signup/login)
-- Products, Cart
-- Checkout (Cash on Delivery)
-- Orders (user + admin)
-- Admin panel (manage products & orders)
-- Tailwind via CDN for styling
-- Seed script to populate sample data
+## Project Overview
+Giftora is a comprehensive application designed to help users manage and track their gifts and gifting lists. It provides an intuitive interface for users to add, edit, and delete gift items, as well as maintain gift lists for various occasions.
 
-Features (Giftora)
-------------------
-- Account management: signup/login, JWT-protected APIs, admin role guard.
-- Product catalog: category browsing, search query filter, product details with reviews.
-- Cart & wishlist: add/update/remove items, gift-wrapping/personalization flags, quantity controls.
-- Gift registry: create/edit registries, share via code, track purchased items.
-- Checkout & orders: place orders from cart, view “My Orders,” rate completed orders.
-- Admin console: manage products (CRUD) and view orders with protected admin routes.
-- Reviews: create/read product reviews (auth required to post).
-- Seed data: scripts to load products, addons, and demo users for quick start.
+## Tech Stack
+- **Frontend:** React.js, Redux, CSS
+- **Backend:** Node.js, Express
+- **Database:** MongoDB
+- **Authentication:** JSON Web Tokens (JWT)
+- **Deployment:** Docker, AWS
 
-Server:
-cd server
-npm install
-cp .env.example .env
-# edit .env if needed (MONGODB_URI, JWT_SECRET)
-npm run seed
-npm run dev
+## Architecture
+Giftora follows a microservices architecture, separating the frontend and backend for better scalability and maintainability. The frontend communicates with the backend through RESTful APIs, enabling smooth data interactions.
 
-Client:
-cd client
-npm install
-npm start
+## API Documentation
+- **GET /api/gifts**: Retrieves all gifts.
+- **POST /api/gifts**: Adds a new gift.
+- **PUT /api/gifts/:id**: Updates an existing gift by ID.
+- **DELETE /api/gifts/:id**: Deletes a gift by ID.
 
-MongoDB connection (for MongoDB Compass):
-mongodb://localhost:27017/the_party_shop
-Admin account: admin@thepartyshop.com / admin123
-Test user: user@thepartyshop.com / user123
-# Giftora-
-# Giftora-
+## Database Design
+The database is structured using MongoDB, with collections for users, gifts, and gift lists. Each gift document includes fields such as `title`, `description`, `price`, `occasion`, and `status`.
+
+## Security Measures
+- Implemented JWT for secure user authentication.
+- Used HTTPS for secure communications.
+- Conducted regular security audits and code reviews to identify and mitigate vulnerabilities.
+
+## Deployment Instructions
+1. Clone the repository.
+2. Create a `.env` file in the root directory with necessary environment variables.
+3. Build the Docker images and containers:
+    ```bash
+    docker-compose up --build
+    ```
+4. Access the application at `http://localhost:3000`.
+
+## Testing Guidelines
+- Use Jest and React Testing Library for frontend testing.
+- Use Mocha and Chai for backend testing.
+- Run tests using the following command:
+    ```bash
+    npm test
+    ```
+
+---
